@@ -19,3 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define USE_I2C
 #define EE_HANDS
+
+#define TAPPING_TERM 250
+#undef PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
