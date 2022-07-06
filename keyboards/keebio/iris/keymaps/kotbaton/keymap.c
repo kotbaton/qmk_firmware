@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├──────────────┼────────────┼─────────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼───────────────┼────────────────┼────────────────┤
      KC_LCTL,       CTL_T(KC_Z), LALT_T(KC_X), KC_C,    KC_V,    KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, LALT_T(KC_DOT), RCTL_T(KC_SLSH), RCTL_T(KC_ENT),
   //└──────────────┴────────────┴─────────────┼────────┴───┬────┴───┬────┴───┬────┘  └───┬────┴────────┴┬───────┼────────┴┬──────────────┴────────────────┴────────────────┘
-                                               KC_LGUI,     LOWER,   KC_SPC,              LT(0, KC_SPC),  RAISE,   KC_RALT
+                                               KC_LGUI,     LOWER,   KC_SPC,              KC_ENT,        RAISE,   KC_RALT
                                            // └────────────┴────────┴────────┘           └──────────────┴───────┴─────────┘
   ),
 
@@ -122,13 +122,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
-      break;
-    case LT(0, KC_SPC):
-      if (!record->tap.count && record->event.pressed) {
-        tap_code16(KC_ENT);
-        return false;
-      }
-      return true;
       break;
     case VIM_CPY:
       if (record->event.pressed) {
