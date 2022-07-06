@@ -24,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├──────────────┼────────────┼─────────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼───────────────┼────────────────┼────────────────┤
   LT(_MEDIA, KC_TAB),KC_Q,       KC_W,         KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,           KC_P,            KC_BSPC,
   //├──────────────┼────────────┼─────────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼───────────────┼────────────────┼────────────────┤
-     SFT_T(KC_ESC), SFT_T(KC_A), KC_S,         KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,           RSFT_T(KC_SCLN), RSFT_T(KC_QUOT),
+     SFT_T(KC_ESC),CTL_T(KC_A),SFT_T(KC_S),LALT_T(KC_D),KC_F,    KC_G,                         KC_H,    KC_J,  LALT_T(KC_K),RSFT_T(KC_L), RCTL_T(KC_SCLN), RSFT_T(KC_QUOT),
   //├──────────────┼────────────┼─────────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼───────────────┼────────────────┼────────────────┤
-     KC_LCTL,       CTL_T(KC_Z), LALT_T(KC_X), KC_C,    KC_V,    KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, LALT_T(KC_DOT), RCTL_T(KC_SLSH), RCTL_T(KC_ENT),
+     KC_LCTL,       KC_Z,        KC_X,         KC_C,    KC_V,    KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,         KC_SLSH,         RCTL_T(KC_ENT),
   //└──────────────┴────────────┴─────────────┼────────┴───┬────┴───┬────┴───┬────┘  └───┬────┴────────┴┬───────┼────────┴┬──────────────┴────────────────┴────────────────┘
                                                KC_LGUI,     LOWER,   KC_SPC,              KC_ENT,        RAISE,   KC_RALT
                                            // └────────────┴────────┴────────┘           └──────────────┴───────┴─────────┘
