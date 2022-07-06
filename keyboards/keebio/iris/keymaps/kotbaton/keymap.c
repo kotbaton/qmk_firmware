@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LCTL, CTL_T(KC_Z),LALT_T(KC_X), KC_C,    KC_V,    KC_B,    KC_HOME,          KC_END,  KC_N,    KC_M,    KC_COMM, LALT_T(KC_DOT),  RCTL_T(KC_SLSH), RCTL_T(KC_ENT),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LGUI, LOWER,   KC_SPC,                    KC_SPC,  RAISE,   KC_RALT
+                                    KC_LGUI, LOWER,   KC_SPC,                    LT(0, KC_SPC),  RAISE,   KC_RALT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -35,9 +35,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_MINS, KC_LBRC, KC_RBRC, KC_PLUS, _______,                            _______, _______, KC_LBRC, KC_RBRC, KC_MINS, KC_PLUS,
+    _______,SFT_T(KC_MINS),KC_LBRC,KC_RBRC,KC_PLUS,_______,                           _______, _______, KC_LBRC, KC_RBRC, RSFT_T(KC_MINS), RSFT_T(KC_PLUS),
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_EQL,  KC_LCBR, KC_RCBR, KC_UNDS, _______, _______,          _______, _______, _______, KC_LCBR, KC_RCBR, KC_BSLS, KC_DEL,
+    _______,CTL_T(KC_EQL),LALT_T(KC_LCBR),KC_RCBR,KC_UNDS, _______, _______,          _______, _______, _______, KC_LCBR, KC_RCBR, LALT_T(KC_BSLS), RCTL_T(KC_DEL),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, _______,                    _______,  _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -121,6 +121,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
+      break;
+    case LT(0, KC_SPC):
+      if (!record->tap.count && record->event.pressed) {
+        tap_code16(C(KC_ENT));
+        return false;
+      }
+      return true;
       break;
   }
   return true;
