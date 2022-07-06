@@ -125,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case LT(0, KC_SPC):
       if (!record->tap.count && record->event.pressed) {
-        tap_code16(C(KC_ENT));
+        tap_code16(KC_ENT);
         return false;
       }
       return true;
