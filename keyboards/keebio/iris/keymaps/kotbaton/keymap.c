@@ -33,8 +33,10 @@ enum custom_keycodes {
 #define HOME_L    LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#define CPY_C LT(0, KC_C)
+#define PST_V LT(0, KC_V)
 
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
   //┌──────────────┬───────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬──────────┬───────────┬────────────────┐
      KC_GRV,        KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,      KC_0,       KC_BSPC,
@@ -43,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├──────────────┼───────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼──────────┼───────────┼────────────────┤
      SFT_T(KC_ESC), HOME_A, HOME_S,  HOME_D,  HOME_F,  KC_G,                         KC_H,    HOME_J,  HOME_K,  HOME_L,    HOME_SCLN,  RSFT_T(KC_QUOT),
   //├──────────────┼───────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼──────────┼───────────┼────────────────┤
-     KC_LCTL,       KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
+     KC_LCTL,       KC_Z,   KC_X,    CPY_C,   PST_V,   KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
   //└──────────────┴───────┴────────┼────────┴───┬────┴───┬────┴───┬────┘  └───┬────┴────────┴┬───────┼────────┴┬─────────┴───────────┴────────────────┘
                                       KC_LGUI,     LOWER,   KC_SPC,              KC_ENT,        RAISE,   KC_RALT
                                  // └────────────┴────────┴────────┘           └──────────────┴───────┴─────────┘
@@ -69,11 +71,11 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-    _______,  _______, KC_LBRC, KC_RBRC, KC_PLUS, KC_EQL,                             _______, _______, KC_LBRC, KC_RBRC, KC_MINS, KC_PLUS,
+    _______,  _______, _______, _______, _______, _______,                            KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_MINS, KC_PLUS,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    _______,  _______, KC_LCBR, KC_RCBR, KC_MINS, KC_UNDS, _______,          _______, _______, _______, KC_LCBR, KC_RCBR, KC_BSLS, KC_DEL,
+    _______,  _______, _______, _______, _______, _______, _______,          _______, KC_UNDS, KC_EQL,  KC_LCBR, KC_RCBR, KC_BSLS, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, _______, _______,                   _______, _______, _______
+                                    _______, _______, _______,                    KC_SPC, _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -156,6 +158,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+
+        case CPY_C:
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_C));
+                return false;
+            }
+            return true;
+        case PST_V:
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_V));
+                return false;
+            }
+            return true;
+
         case VIM_CPY:
             if (record->event.pressed) {
                 SEND_STRING("\"" SS_DELAY(100) "+" SS_DELAY(100) "Y");
