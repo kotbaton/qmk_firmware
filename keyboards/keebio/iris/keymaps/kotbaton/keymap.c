@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-
+// Layer defines
 #define _QWERTY   0
 #define _S_QWERTY 1
 #define _LOWER    2
@@ -14,6 +14,11 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   VIM_CPY,
+  LTX_BEGIN,
+  LTX_REF,
+  LTX_LABEL,
+  LTX_SEC,
+  LANG
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,9 +71,9 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                            KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
+     _______, _______, LTX_SEC, _______, _______, LTX_REF,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, VIM_CPY, _______, _______, _______,          _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
+     _______, LANG,    _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LALT, _______, _______,                   _______, _______, KC_LALT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -104,48 +109,73 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-    case VIM_CPY:
-      if (record->event.pressed) {
-        SEND_STRING("\"" SS_DELAY(100) "+" SS_DELAY(100) "Y");
-      }
-      break;
-  }
-  return true;
+    switch (keycode) {
+        case QWERTY:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
+            }
+            return false;
+            break;
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+            break;
+        case RAISE:
+            if (record->event.pressed) {
+                layer_on(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+            break;
+        case ADJUST:
+            if (record->event.pressed) {
+                layer_on(_ADJUST);
+            } else {
+                layer_off(_ADJUST);
+            }
+            return false;
+            break;
+        case VIM_CPY:
+            if (record->event.pressed) {
+                SEND_STRING("\"" SS_DELAY(100) "+" SS_DELAY(100) "Y");
+            }
+            break;
+        case LTX_BEGIN:
+            if (record->event.pressed) {
+                SEND_STRING("\\begin{}" SS_TAP(X_LEFT));
+            }
+            break;
+        case LTX_REF:
+            if (record->event.pressed) {
+                SEND_STRING("(\\ref{})" SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+            }
+            break;
+        case LTX_SEC:
+            if (record->event.pressed) {
+                SEND_STRING("\\section{}" SS_TAP(X_LEFT));
+            }
+            break;
+        case LTX_LABEL:
+            if (record->event.pressed) {
+                SEND_STRING("\\label{}" SS_TAP(X_LEFT));
+            }
+            break;
+        case LANG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPC) SS_UP(X_LGUI));
+            }
+            break;
+    }
+    return true;
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
