@@ -32,7 +32,13 @@ enum custom_keycodes {
 #define HOME_L    LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
-// Right-hand home row mode LOWER layer
+// Left-hand home row mode on LOWER layer
+#define HL_F1 LGUI_T(KC_F1)
+#define HL_F2 LALT_T(KC_F2)
+#define HL_F3 LCTL_T(KC_F3)
+#define HL_F4 LSFT_T(KC_F4)
+
+// Right-hand home row mode on LOWER layer
 #define HL_MINS RSFT_T(KC_MINS)
 #define HL_LBRC RCTL_T(KC_LBRC)
 #define HL_RBRC LALT_T(KC_RBRC)
@@ -77,7 +83,7 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_UNDS, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
+     KC_F11,  HL_F1,   HL_F2,   HL_F3,   HL_F4,   KC_F5,                              KC_UNDS, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,          _______, KC_EQL,  KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -93,7 +99,7 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, LTX_SEC, _______, _______, LTX_REF,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______,    _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
+     _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LALT, _______, _______,                   _______, _______, KC_LALT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
