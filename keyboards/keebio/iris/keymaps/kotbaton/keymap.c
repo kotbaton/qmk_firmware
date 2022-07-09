@@ -18,7 +18,6 @@ enum custom_keycodes {
   LTX_REF,
   LTX_LABEL,
   LTX_SEC,
-  LANG
 };
 
 // Left-hand home row mods
@@ -33,6 +32,13 @@ enum custom_keycodes {
 #define HOME_L    LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
+// Right-hand home row mode LOWER layer
+#define HL_MINS RSFT_T(KC_MINS)
+#define HL_LBRC RCTL_T(KC_LBRC)
+#define HL_RBRC LALT_T(KC_RBRC)
+#define HL_BSLS RGUI_T(KC_BSLS)
+
+#define CUT_X LT(0, KC_X)
 #define CPY_C LT(0, KC_C)
 #define PST_V LT(0, KC_V)
 
@@ -45,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├──────────────┼───────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼──────────┼───────────┼────────────────┤
      SFT_T(KC_ESC), HOME_A, HOME_S,  HOME_D,  HOME_F,  KC_G,                         KC_H,    HOME_J,  HOME_K,  HOME_L,    HOME_SCLN,  RSFT_T(KC_QUOT),
   //├──────────────┼───────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼──────────┼───────────┼────────────────┤
-     KC_LCTL,       KC_Z,   KC_X,    CPY_C,   PST_V,   KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
+     KC_LCTL,       KC_Z,   CUT_X,   CPY_C,   PST_V,   KC_B,    KC_HOME,    KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
   //└──────────────┴───────┴────────┼────────┴───┬────┴───┬────┴───┬────┘  └───┬────┴────────┴┬───────┼────────┴┬─────────┴───────────┴────────────────┘
                                       KC_LGUI,     LOWER,   KC_SPC,              KC_ENT,        RAISE,   KC_RALT
                                  // └────────────┴────────┴────────┘           └──────────────┴───────┴─────────┘
@@ -69,11 +75,11 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
+     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-    _______,  _______, _______, _______, _______, _______,                            KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_MINS, KC_PLUS,
+     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_UNDS, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    _______,  _______, _______, _______, _______, _______, _______,          _______, KC_UNDS, KC_EQL,  KC_LCBR, KC_RCBR, KC_BSLS, KC_DEL,
+     KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,          _______, KC_EQL,  KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, _______,                    KC_SPC, _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -87,7 +93,7 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, LTX_SEC, _______, _______, LTX_REF,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, LANG,    _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
+     _______, _______,    _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LALT, _______, _______,                   _______, _______, KC_LALT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -159,6 +165,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
+        case CUT_X:
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_X));
+                return false;
+            }
+            return true;
         case CPY_C:
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(C(KC_C));
@@ -195,11 +207,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LTX_LABEL:
             if (record->event.pressed) {
                 SEND_STRING("\\label{}" SS_TAP(X_LEFT));
-            }
-            break;
-        case LANG:
-            if (record->event.pressed) {
-                SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPC) SS_UP(X_LGUI));
             }
             break;
     }
