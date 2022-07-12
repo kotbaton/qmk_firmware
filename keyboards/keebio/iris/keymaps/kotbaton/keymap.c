@@ -48,6 +48,9 @@ enum custom_keycodes {
 #define CPY_C LT(0, KC_C)
 #define PST_V LT(0, KC_V)
 
+#define M_HOME LT(_RAISE, KC_HOME)
+#define M_END LT(_RAISE, KC_END)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
   //┌──────────────┬───────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬──────────┬───────────┬────────────────┐
@@ -99,7 +102,7 @@ SFT_T(KC_ESC),KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, LTX_SEC, _______, _______, LTX_REF,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
+     _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,_______,         _______, KC_PGUP, KC_PGDN,  M_HOME, M_END,   KC_PIPE, KC_DEL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LALT, _______, _______,                   _______, _______, KC_LALT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -189,6 +192,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
+
+        case M_HOME:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_LEFT));
+            } else if (record->event.pressed) {
+                tap_code16(KC_HOME);
+            }
+            return false;
+        case M_END:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_RGHT));
+            } else if (record->event.pressed) {
+                tap_code16(KC_END);
+            }
+            return false;
 
         case VIM_CPY:
             if (record->event.pressed) {
