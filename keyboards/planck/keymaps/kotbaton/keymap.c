@@ -33,6 +33,7 @@ enum planck_keycodes {
   LTX_REF,
   LTX_LABEL,
   LTX_SEC,
+  QMK_KEY
 };
 
 #define LOWER MO(_LOWER)
@@ -66,6 +67,9 @@ enum planck_keycodes {
 #define CPY_C LT(0, KC_C)
 #define PST_V LT(0, KC_V)
 
+#define M_HOME LT(_RAISE, KC_HOME)
+#define M_END LT(_RAISE, KC_END)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
   LT(_MEDIA, KC_TAB),KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,      KC_P,       KC_BSPC,
@@ -91,12 +95,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
     _______, _______, LTX_SEC, _______, _______, LTX_REF,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
-    _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN, KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_PIPE, KC_DEL,
+    _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN, KC_PGUP, KC_PGDN, M_HOME,  M_END,  KC_PIPE, KC_DEL,
     _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
 ),
 
 [_ADJUST] = LAYOUT_planck_grid(
-    QK_BOOT, DF(_QWERTY), _______, MI_ON,   MI_OFF,  _______,       _______, _______, RGB_SAD, RGB_SAI, _______, _______,
+    QK_BOOT, DF(_QWERTY), _______, MI_ON,   MI_OFF,  _______,       _______, _______, RGB_SAD, RGB_SAI, _______, QMK_KEY,
     _______, _______, MU_MOD,  AU_ON,   AU_OFF,  DF(_S_QWERTY), _______, RGB_TOG, RGB_VAD, RGB_VAI, _______, _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______,       _______, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______,
     _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
@@ -147,6 +151,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
+        case M_HOME:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_LEFT));
+            } else if (record->event.pressed) {
+                tap_code16(KC_HOME);
+            }
+            return false;
+        case M_END:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_RGHT));
+            } else if (record->event.pressed) {
+                tap_code16(KC_END);
+            }
+            return false;
+
         case VIM_CPY:
             if (record->event.pressed) {
                 SEND_STRING("\"" SS_DELAY(100) "+" SS_DELAY(100) "Y");
@@ -170,6 +189,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LTX_LABEL:
             if (record->event.pressed) {
                 SEND_STRING("\\label{}" SS_TAP(X_LEFT));
+            }
+            break;
+
+        case QMK_KEY:
+            if (record->event.pressed) {
+                SEND_STRING("qmk flash -kb planck/ez/glow -km kotbaton");
             }
             break;
     }
