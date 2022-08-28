@@ -25,6 +25,7 @@ enum custom_keycodes {
   LTX_REF,
   LTX_LABEL,
   LTX_SEC,
+  QMK_KEY
 };
 
 #define HOME_A    LGUI_T(KC_A)
@@ -57,6 +58,10 @@ enum custom_keycodes {
 #define M_HOME LT(3, KC_HOME)
 #define M_END LT(3, KC_END)
 
+#define MY_MUTE KC_KB_MUTE
+#define MY_VOLU KC_KB_VOLUME_UP
+#define MY_VOLD KC_KB_VOLUME_DOWN
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -87,9 +92,9 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_F11,  HL_F1,   HL_F2,   HL_F3,   HL_F4,   KC_F5,                         KC_EQL, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
+     _______,  HL_F1,   HL_F2,  HL_F3,   HL_F4,   KC_F5,                          KC_EQL, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                       KC_PLUS, KC_UNDS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
+     _______, MY_MUTE, MY_VOLD, MY_VOLU, _______, _______,                       KC_PLUS, KC_UNDS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______,  KC_SPC,     KC_SPC,   MO(4), KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -109,13 +114,13 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
 
   [4] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT,   DF(0), _______, _______, _______, _______,                      _______, _______, RGB_SAD, RGB_SAI, _______, _______,
+      QK_BOOT,   DF(0),  DF(1),  XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, XXXXXXX, QMK_KEY,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     _______, _______, _______, _______, _______,    DF(1),                      _______, RGB_TOG, RGB_VAD, RGB_VAI, _______, _______,
+     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        XXXXXXX, RGB_TOG, RGB_VAD, RGB_VAI, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     _______, _______, _______, _______, _______, _______,                       _______, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______,
+     KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                       XXXXXXX, RGB_MOD, RGB_HUD, RGB_HUI, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
+                                          KC_LGUI, XXXXXXX,  KC_SPC,     KC_ENT, XXXXXXX, KC_RALT
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -279,6 +284,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LTX_LABEL:
             if (record->event.pressed) {
                 SEND_STRING("\\label{}" SS_TAP(X_LEFT));
+            }
+            break;
+
+        case QMK_KEY:
+            if (record->event.pressed) {
+                SEND_STRING("qmk flash -kb crkbd/rev1 -km kotbaton");
             }
             break;
     }
