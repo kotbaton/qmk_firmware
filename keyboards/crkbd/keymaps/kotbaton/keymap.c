@@ -25,6 +25,8 @@ enum custom_keycodes {
   LTX_REF,
   LTX_LABEL,
   LTX_SEC,
+  NAME,
+  EMAIL,
   QMK_KEY
 };
 
@@ -71,7 +73,7 @@ SFT_T(KC_ESC), HOME_A,   HOME_S,  HOME_D,  HOME_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_Z,   CUT_X,   CPY_C,   PST_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, RCTL_T(KC_ENT),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(2),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
+                                          LM(2, MOD_LGUI),   MO(2),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -83,7 +85,7 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(2),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
+                                          LM(2, MOD_LGUI),   MO(2),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -96,7 +98,7 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      _______, MY_MUTE, MY_VOLD, MY_VOLU, _______, _______,                       KC_PLUS, KC_UNDS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_SPC,   MO(4), KC_RALT
+                                          KC_LGUI, _______,  KC_SPC,     KC_SPC, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -104,11 +106,11 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     _______, _______, LTX_SEC, _______, _______, LTX_REF,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
+     _______,    NAME, LTX_SEC, _______, _______, LTX_REF,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,                     KC_PGUP, KC_PGDN,  M_HOME, M_END,   KC_PIPE, KC_DEL,
+     _______,   EMAIL, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,                     KC_PGUP, KC_PGDN,  M_HOME, M_END,   KC_PIPE, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(4),  KC_SPC,     KC_ENT, _______, KC_RALT
+                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -222,6 +224,10 @@ bool oled_task_user(void) {
     return false;
 }
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, 2, 3, 4);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         set_keylog(keycode, record);
@@ -290,6 +296,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QMK_KEY:
             if (record->event.pressed) {
                 SEND_STRING("qmk flash -kb crkbd/rev1 -km kotbaton");
+            }
+            break;
+
+        case NAME:
+            if (record->event.pressed) {
+                SEND_STRING("Andrii Shekhovtsov");
+            }
+            break;
+
+        case EMAIL:
+            if (record->event.pressed) {
+                SEND_STRING("andrii-shekhovtsov@zut.edu.pl");
             }
             break;
     }
