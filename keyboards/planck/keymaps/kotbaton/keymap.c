@@ -33,6 +33,8 @@ enum planck_keycodes {
   LTX_REF,
   LTX_LABEL,
   LTX_SEC,
+  NAME,
+  EMAIL,
   QMK_KEY
 };
 
@@ -75,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(_MEDIA, KC_TAB),KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,      KC_P,       KC_BSPC,
      SFT_T(KC_ESC), HOME_A, HOME_S,  HOME_D,  HOME_F,  KC_G,  KC_H,    HOME_J,  HOME_K,  HOME_L,    HOME_SCLN,  RSFT_T(KC_QUOT),
      KC_LCTL,       KC_Z,   CUT_X,   CPY_C,   PST_V,   KC_B,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
-     KC_LCTL,       KC_NO,  KC_LALT, KC_LGUI, LOWER,   KC_SPC, KC_SPC, RAISE,   KC_RALT, KC_LEFT,    KC_RGHT,   KC_ENT
+     KC_LCTL,       KC_NO,  KC_LALT, LM(_LOWER, MOD_LGUI), LOWER,   KC_SPC, KC_SPC, RAISE,   KC_RALT, KC_LEFT,    KC_RGHT,   KC_ENT
 ),
 
 [_S_QWERTY] = LAYOUT_planck_grid(
@@ -94,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-    _______, _______, LTX_SEC, _______, _______, LTX_REF,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
-    _______, _______, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN, KC_PGUP, KC_PGDN, M_HOME,  M_END,  KC_PIPE, KC_DEL,
+    _______, NAME,    LTX_SEC, _______, _______, LTX_REF,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
+    _______, EMAIL,   _______, VIM_CPY,LTX_LABEL,LTX_BEGIN, KC_PGUP, KC_PGDN, M_HOME,  M_END,  KC_PIPE, KC_DEL,
     _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
 ),
 
@@ -195,6 +197,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QMK_KEY:
             if (record->event.pressed) {
                 SEND_STRING("qmk flash -kb planck/ez/glow -km kotbaton");
+            }
+            break;
+
+        case NAME:
+            if (record->event.pressed) {
+                SEND_STRING("Andrii Shekhovtsov");
+            }
+            break;
+
+        case EMAIL:
+            if (record->event.pressed) {
+                SEND_STRING("andrii-shekhovtsov@zut.edu.pl");
             }
             break;
     }
