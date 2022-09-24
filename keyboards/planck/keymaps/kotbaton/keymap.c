@@ -75,19 +75,21 @@ enum planck_keycodes {
 #define MY_VOLU KC_KB_VOLUME_UP
 #define MY_VOLD KC_KB_VOLUME_DOWN
 
+#define TAG_KEY LM(_LOWER, MOD_LGUI)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
-     KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,      KC_P,       KC_BSPC,
-     SFT_T(KC_ESC), HOME_A, HOME_S,  HOME_D,  HOME_F,  KC_G,  KC_H,    HOME_J,  HOME_K,  HOME_L,    HOME_SCLN,  RSFT_T(KC_QUOT),
-     KC_LCTL,       KC_Z,   CUT_X,   CPY_C,   PST_V,   KC_B,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
-     KC_LCTL,       KC_NO,  KC_LALT, LM(_LOWER, MOD_LGUI), LOWER,   KC_SPC, KC_SPC, RAISE,   KC_RALT, KC_LEFT,    KC_RGHT,   KC_ENT
+     KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSPC,
+     SFT_T(KC_ESC), HOME_A, HOME_S,  HOME_D,  HOME_F,  KC_G,   KC_H,   HOME_J, HOME_K,  HOME_L,  HOME_SCLN, RSFT_T(KC_QUOT),
+     KC_LCTL,       KC_Z,   CUT_X,   CPY_C,   PST_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,   RCTL_T(KC_ENT),
+     KC_LCTL,       KC_NO,  KC_LALT, TAG_KEY, LOWER,   KC_SPC, KC_SPC, RAISE,  KC_RALT, KC_LEFT, KC_RGHT,   KC_ENT
 ),
 
 [_S_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    KC_LCTL, KC_NO,   KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    KC_LCTL, KC_NO,   KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_RALT, KC_DOWN, KC_UP,   KC_ENT
 ),
 
 [_LOWER] = LAYOUT_planck_grid(
@@ -105,8 +107,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid(
-    QK_BOOT, DF(_QWERTY), DF(_S_QWERTY), MI_ON,   MI_OFF,  _______, _______, _______, RGB_SAD, RGB_SAI, _______, QMK_KEY,
-    KC_F11,  KC_F1,       KC_F2,         KC_F3,   KC_F4,   KC_F5,   RGB_TOG, RGB_VAD, RGB_VAI, _______, _______, _______,
+    QK_BOOT, DF(_QWERTY), DF(_S_QWERTY), MI_ON,   MI_OFF,  _______, _______, _______, _______, RGB_SAD, RGB_SAI, QMK_KEY,
+    KC_F11,  KC_F1,       KC_F2,         KC_F3,   KC_F4,   KC_F5,   _______, RGB_TOG, RGB_VAD, RGB_VAI, _______, _______,
     KC_F12,  KC_F6,       KC_F7,         KC_F8,   KC_F9,   KC_F10,  _______, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______,
     _______, _______,     _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
