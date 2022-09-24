@@ -23,7 +23,6 @@ enum planck_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _MEDIA,
 };
 
 enum planck_keycodes {
@@ -71,10 +70,14 @@ enum planck_keycodes {
 
 #define M_HOME LT(_RAISE, KC_HOME)
 #define M_END LT(_RAISE, KC_END)
+ 
+#define MY_MUTE KC_KB_MUTE
+#define MY_VOLU KC_KB_VOLUME_UP
+#define MY_VOLD KC_KB_VOLUME_DOWN
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
-  LT(_MEDIA, KC_TAB),KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,      KC_P,       KC_BSPC,
+     KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,      KC_P,       KC_BSPC,
      SFT_T(KC_ESC), HOME_A, HOME_S,  HOME_D,  HOME_F,  KC_G,  KC_H,    HOME_J,  HOME_K,  HOME_L,    HOME_SCLN,  RSFT_T(KC_QUOT),
      KC_LCTL,       KC_Z,   CUT_X,   CPY_C,   PST_V,   KC_B,  KC_N,    KC_M,    KC_COMM, KC_DOT,    KC_SLSH,    RCTL_T(KC_ENT),
      KC_LCTL,       KC_NO,  KC_LALT, LM(_LOWER, MOD_LGUI), LOWER,   KC_SPC, KC_SPC, RAISE,   KC_RALT, KC_LEFT,    KC_RGHT,   KC_ENT
@@ -89,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_planck_grid(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_F11,  HL_F1,   HL_F2,   HL_F3,   HL_F4,   KC_F5,   KC_EQL, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
-    KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_PLUS,KC_UNDS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
+    _______, HL_F1,   HL_F2,   HL_F3,   HL_F4,   KC_F5,   KC_EQL, HL_MINS, HL_LBRC, HL_RBRC, HL_BSLS, KC_PRINT_SCREEN,
+    _______, MY_MUTE, MY_VOLD, MY_VOLU, _______, _______, KC_PLUS,KC_UNDS, KC_LCBR, KC_RCBR, KC_PIPE, KC_DEL,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -102,19 +105,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid(
-    QK_BOOT, DF(_QWERTY), _______, MI_ON,   MI_OFF,  _______,       _______, _______, RGB_SAD, RGB_SAI, _______, QMK_KEY,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  DF(_S_QWERTY), _______, RGB_TOG, RGB_VAD, RGB_VAI, _______, _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______,       _______, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______,
-    _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
+    QK_BOOT, DF(_QWERTY), DF(_S_QWERTY), MI_ON,   MI_OFF,  _______, _______, _______, RGB_SAD, RGB_SAI, _______, QMK_KEY,
+    KC_F11,  KC_F1,       KC_F2,         KC_F3,   KC_F4,   KC_F5,   RGB_TOG, RGB_VAD, RGB_VAI, _______, _______, _______,
+    KC_F12,  KC_F6,       KC_F7,         KC_F8,   KC_F9,   KC_F10,  _______, RGB_MOD, RGB_HUD, RGB_HUI, _______, _______,
+    _______, _______,     _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
-
-[_MEDIA] = LAYOUT_planck_grid(
-    _______, KC_KB_MUTE, KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP, _______, _______,       _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
-),
-
 };
 
 #ifdef AUDIO_ENABLE
