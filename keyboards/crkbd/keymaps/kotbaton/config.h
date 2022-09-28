@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define USE_MATRIX_I2C
 
 /* Select hand configuration */
-
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
@@ -47,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_EFFECT_TWINKLE
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
-#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #undef ENABLE_RGB_MATRIX_BREATHING
 #undef ENABLE_RGB_MATRIX_BAND_SAT
@@ -57,15 +56,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
 #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
 #undef ENABLE_RGB_MATRIX_CYCLE_ALL
-#undef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-// #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN
 #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
 #undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #undef ENABLE_RGB_MATRIX_DUAL_BEACON
-#undef ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
 #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 #undef ENABLE_RGB_MATRIX_RAINDROPS
 #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
@@ -94,5 +93,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
-//#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_FONT_H "keyboards/crkbd/keymaps/kotbaton/font.c"
