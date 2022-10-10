@@ -116,7 +116,7 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
 
   [4] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT,   DF(0),  DF(1),  XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, XXXXXXX, QMK_KEY,
+      QK_BOOT,   DF(0),  DF(1),  XXXXXXX, XXXXXXX, XXXXXXX,                     RGB_SPD, RGB_SPI, RGB_SAD, RGB_SAI, XXXXXXX, QMK_KEY,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        XXXXXXX, RGB_TOG, RGB_VAD, RGB_VAI, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
