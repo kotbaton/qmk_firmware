@@ -41,6 +41,10 @@ enum custom_keycodes {
 #define HOME_L    LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
+// Under home row mods
+#define UH_X    RALT_T(KC_X)
+#define UH_DOT  RALT_T(KC_DOT)
+
 // Left-hand home row mode on LOWER layer
 #define HL_F1 LGUI_T(KC_F1)
 #define HL_F2 LALT_T(KC_F2)
@@ -53,7 +57,6 @@ enum custom_keycodes {
 #define HL_RBRC LALT_T(KC_RBRC)
 #define HL_BSLS RGUI_T(KC_BSLS)
 
-#define CUT_X LT(0, KC_X)
 #define CPY_C LT(0, KC_C)
 #define PST_V LT(0, KC_V)
 
@@ -69,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 LT(5, KC_TAB),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-SFT_T(KC_ESC), HOME_A,   HOME_S,  HOME_D,  HOME_F,    KC_G,                         KC_H,  HOME_J,  HOME_K,  HOME_L, HOME_SCLN, RSFT_T(KC_QUOT),
+SFT_T(KC_ESC),  HOME_A,  HOME_S,  HOME_D,  HOME_F,    KC_G,                         KC_H,  HOME_J,  HOME_K,  HOME_L, HOME_SCLN, RSFT_T(KC_QUOT),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,   CUT_X,   CPY_C,   PST_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, RCTL_T(KC_ENT),
+      KC_LCTL,    KC_Z,    UH_X,   CPY_C,   PST_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  UH_DOT, KC_SLSH, RCTL_T(KC_ENT),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           LM(2, MOD_LGUI),   MO(2),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -233,12 +236,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_keylog(keycode, record);
     }
     switch (keycode) {
-        case CUT_X:
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(C(KC_X));
-                return false;
-            }
-            return true;
         case CPY_C:
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(C(KC_C));
