@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 #undef PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define LAYER_STATE_8BIT
 
