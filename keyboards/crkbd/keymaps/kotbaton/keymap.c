@@ -27,6 +27,7 @@ enum custom_keycodes {
   LTX_SEC,
   NAME,
   EMAIL,
+  TEL,
   QMK_KEY
 };
 
@@ -108,7 +109,7 @@ SFT_T(KC_ESC),   KC_A,     KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      _______,    NAME, LTX_SEC, _______, _______, LTX_REF,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS, KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     _______,   EMAIL, _______, VIM_CPY,LTX_LABEL,LTX_BEGIN,                     KC_PGUP, KC_PGDN,  M_HOME, M_END,   KC_PIPE, KC_DEL,
+     _______,   EMAIL,     TEL, VIM_CPY,LTX_LABEL,LTX_BEGIN,                     KC_PGUP, KC_PGDN,  M_HOME, M_END,   KC_PIPE, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -301,13 +302,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case NAME:
             if (record->event.pressed) {
-                SEND_STRING("Andrii Shekhovtsov");
+                SEND_STRING("Your name");
+            }
+            break;
+
+        case TEL:
+            if (record->event.pressed) {
+                SEND_STRING("Your phone");
             }
             break;
 
         case EMAIL:
             if (record->event.pressed) {
-                SEND_STRING("andrii-shekhovtsov@zut.edu.pl");
+                SEND_STRING("Your email");
             }
             break;
     }
